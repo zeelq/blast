@@ -1,0 +1,47 @@
+{
+  "name": "blast",
+  "description": "a web framework",
+  "version": "0.0.1",
+  "repository": "https://github.com/cage1618/blast.git",
+  "bugs": "",
+  "dependencies": {
+    "utilities"                : ">=0.0.37",
+    "co"                       : ">=3.0.0",
+    "co-body"                  : ">=0.0.1",
+    "co-busboy"                : ">=0.1.0",
+    "co-fs"                    : ">=1.1.1",
+    "koa-gzip"                 : ">=0.1.0",
+    "co-views"                 : ">=0.1.0",
+    "finished"                 : ">=1.1.1",
+    "koa"                      : ">=0.6.0",
+    "koa-compose"              : ">=2.1.0",
+    "koa-csrf"                 : ">=1.1.0",
+    "koa-logger"               : ">=1.1.0",
+    "koa-session"              : ">=1.2.0",
+    "koa-static"               : ">=1.4.0",
+    "raw-body"                 : ">=1.1.1",
+    "save-to"                  : ">=1.0.0",
+    "streaming-json-stringify" : ">=1.0.0",
+    "debug"                    : ">=0.8.1",
+    "commander"                : ">=2.2.0",
+    "path-to-regexp"           : ">=0.1.2",
+    "mysql"                    : ">=2.3.2",
+    "gearmanode"               : ">=0.1.5",
+    "dot"                      : ">=1.0.2",
+    "mkdirp"                   : ">=0.5.0",
+    "division"                 : ">=0.4.5"
+  },
+  "devDependencies": {
+    "co": "*",
+    "mocha": "*",
+    "should": "*",
+    "supertest": "*"
+  },
+  "scripts": {
+    "test": "make test"
+  },
+  "engines": {
+    "node": ">= 11.3"
+  },
+  "license": "MIT"
+}

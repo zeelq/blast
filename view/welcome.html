@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Welcome to Blast</title>
+        <style type="text/css">
+            *{
+                margin:0;
+                padding:0;
+            }
+            .header{
+                padding:10px 0 10px 20px;
+                background-color:#E0EBFF;
+                border-bottom:1px solid #DADDE7;
+            }
+            .header h1{
+                font-size:32px;
+            }
+            .header strong{
+                font-size:18px;
+                color:#888;
+            }
+            .tips{
+                padding-top:10px;
+                font-size:14px;
+                padding-left:20px;
+            }
+            .code{
+                background-color:#f2f2f2;
+                padding:5px 12px;
+                margin-top:8px;
+            }
+            .code p{
+            
+            }
+        </style>
+    </head>
+    <body>
+        <div class="header">
+            <h1>It worked!</h1>
+            <strong>Congratulations on your first Blast-powered page.</strong>
+        </div>
+        <div class="tips">
+            <p>您之所以看到这个页面，是因为您还没有配置任何路由</p>
+            <p>一个合法的路由类似如下代码：</p>
+            <div class="code">
+                <p>module.exports = {</p>
+                <p style="padding-left:24px">"/": function *() {</p>
+                <p style="padding-left:48px">this.body = 'Index';</p>
+                <p style="padding-left:24px">}</p>
+                <p>}</p>
+            </div>
+        </div>
+    </body>
+</html>
