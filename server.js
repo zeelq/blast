@@ -10,10 +10,10 @@ var session = require('koa-session');
 var app = koa();
 
 commander.version('0.1.1')
-    .option('-d, --dir [path]', 'The project dir')
-    .option('-e, --environment settings [file]', 'The config file', 'development')
-    .option('-c, --custom settings [file]', 'The config file')
-    .option('-p, --port [number]', 'The prot')
+    .option('-d, --dir [path]', 'the project dir')
+    .option('-e, --environment settings [file]', 'the config file', 'development')
+    .option('-c, --custom settings [file]', 'the developer config file')
+    .option('-p, --port [number]', 'listen prot')
     .parse(process.argv);
 
 
@@ -54,8 +54,8 @@ var defaultSettings = {
             'compile'   : 'template',
             // 模板后缀
             'ext'       : 'html',
-
-            'set'       : null
+            // 配置模板引擎,如果需要，可以指定一个函数，作为模板引擎对象的一个方法被调用
+            'configure': null
         }
     },
 
@@ -67,11 +67,7 @@ var defaultSettings = {
     // 静态文件配置
     'static': {
         // 静态文件域名
-        'domain': 'http://localhost',
-        'domain': {
-            'public' : '/public',
-            'apps'   : '/apps'
-        },
+        'domain': '/',
         // favicon图标位置
         'favicon': path.join(dir, 'favicon.ico')
     },
@@ -84,11 +80,9 @@ var defaultSettings = {
 };
 var settings = require(path.join(dir, 'settings'));
 var environment = commander.environment && require(path.join(dir, commander.environment));
-var custom = commander.custom && require(path.join(dir, commander.custom));
+var custom = commander.custom && require(path.join(dir, commander.custom)) || {};
 var settings = utils.mixin(defaultSettings, settings, environment, custom, true);
-var port = commander.port || settings.port;
-
-settings.port = port;
+var port = settings.port;
 
 app.name = settings.name;
 app.env = commander.environment;
