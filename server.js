@@ -24,10 +24,10 @@ if (!commander.dir) {
 // import settings
 var dir = path.resolve(commander.dir);
 var defaultSettings = {
-    'dir': dir,
-    'port': 8888,
-    'host': '0.0.0.0',
-    'title': 'Welcome to Blast',
+    'dir'   : dir,
+    'port'  : 8888,
+    'host'  : '0.0.0.0',
+    'title' : 'Welcome to Blast',
     // session 配置
     'session': {
         'keys': ['the blast session keys'],
@@ -43,19 +43,19 @@ var defaultSettings = {
     // 视图设置
     'views': {
         // 模板文件位置
-        'path': path.join(dir, 'views'),
+        'path'      : path.join(dir, 'views'),
         // 模板文件缓存位置
-        'cache': path.join(dir, 'cache'),
+        'cache'     : path.join(dir, 'cache'),
         // 模板引擎
-        'engine': {
+        'engine'    : {
             // 模板引擎名称
-            'name': 'dot',
+            'name'      : 'dot',
             // 模板引擎编译方法
-            'compile': 'template',
+            'compile'   : 'template',
             // 模板后缀
-            'ext': 'html',
+            'ext'       : 'html',
 
-            'set': null
+            'set'       : null
         }
     },
 
@@ -68,6 +68,10 @@ var defaultSettings = {
     'static': {
         // 静态文件域名
         'domain': 'http://localhost',
+        'domain': {
+            'public' : '/public',
+            'apps'   : '/apps'
+        },
         // favicon图标位置
         'favicon': path.join(dir, 'favicon.ico')
     },
@@ -132,3 +136,44 @@ console.log('listening on port ' + port);
 console.log('======================================== settings ========================================');
 console.log(settings);
 console.log('======================================== settings ========================================');
+
+
+/****************************** 开发环境监控文件变动,自动重启 node 服务 ************************/
+if (app.env === 'NODE_ENV' || app.env === 'development') {
+    var chokidar = require('chokidar');
+    var watcherOptions = {
+        ignored: /[\/\\]\.|[\/\\]node_modules/,
+        persistent: true,
+        interval: 1000
+    };
+
+    var watcherBlast = chokidar.watch(__dirname, watcherOptions);
+    var watcherProject = chokidar.watch(dir, watcherOptions);
+
+    function watcher() {
+        process.exit();
+    }
+
+    app.once('start', function() {
+
+        // 监控 blast 目录
+        watcherBlast.on('add', watcher)
+            .on('addDir', watcher)
+            .on('change', watcher)
+            .on('unlink', watcher)
+            .on('unlinkDir', watcher)
+            .on('error', watcher);
+
+        // 监控项目根目录
+        watcherProject.on('add', watcher)
+            .on('addDir', watcher)
+            .on('change', watcher)
+            .on('unlink', watcher)
+            .on('unlinkDir', watcher)
+            .on('error', watcher);
+    });
+
+    setTimeout(function() {
+        app.emit('start');
+    }, 200);
+}
