@@ -19,6 +19,7 @@
     "koa-logger"               : ">=1.1.0",
     "koa-session"              : ">=1.2.0",
     "koa-static"               : ">=1.4.0",
+    "bytes"                    : ">=1.0.0",
     "raw-body"                 : ">=1.1.1",
     "save-to"                  : ">=1.0.0",
     "streaming-json-stringify" : ">=1.0.0",
@@ -30,6 +31,8 @@
     "dot"                      : ">=1.0.2",
     "mkdirp"                   : ">=0.5.0",
     "division"                 : ">=0.4.5",
+    "passthrough-counter"      : ">=0.0.1",
+    "humanize-number"          : ">=0.0.1",
     "chokidar"                 : ">=0.8.2",
     "orm"                      : ">=2.1.15"
   },
