@@ -31,7 +31,8 @@
     "mkdirp"                   : ">=0.5.0",
     "division"                 : ">=0.4.5",
     "chokidar"                 : ">=0.8.2",
-    "orm"                      : ">=2.1.15"
+    "orm"                      : ">=2.1.15",
+    "colors"                   : ">=0.6.2"
   },
   "devDependencies": {
     "co": "*",

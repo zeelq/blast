@@ -7,6 +7,8 @@ var utils = require('./lib/utils');
 var commander = require('commander');
 var session = require('koa-session');
 
+var colors = require('colors');
+
 var app = koa();
 
 commander.version('0.1.1')
@@ -132,7 +134,7 @@ middlewares['afterRoute'] && app.use(middlewares['afterRoute']);
 // listen at port
 app.listen(port);
 
-console.log('listening on port ' + port);
+console.log('listening on port ' + port.green);
 console.log('======================================== settings ========================================');
 console.log(settings);
 console.log('======================================== settings ========================================');
