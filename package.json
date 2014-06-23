@@ -34,8 +34,8 @@
     "passthrough-counter"      : ">=0.0.1",
     "humanize-number"          : ">=0.0.1",
     "chokidar"                 : ">=0.8.2",
-    "orm"                      : ">=2.1.15",
-    "colors"                   : ">=0.6.2"
+    "colors"                   : ">=0.6.2",
+    "sequelize"                : ">=1.7.9"
   },
   "devDependencies": {
     "co": "*",
