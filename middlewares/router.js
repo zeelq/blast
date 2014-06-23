@@ -85,7 +85,7 @@ module.exports = function(controller) {
 
         } : function *welcome(next) {
             this.set('Content-Type', 'text/html');
-            this.body = yield fs.readFile.bind(null, path.join(__dirname, '../view/welcome.html'));
+            this.body = yield fs.readFile.bind(null, path.join(__dirname, '../views/welcome.html'));
             yield next;
         }
 };

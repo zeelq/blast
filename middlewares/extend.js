@@ -1,5 +1,5 @@
 var views = require('co-views');
-var utils = require('./utils');
+var utils = require('../lib/utils');
 var parse = require('co-body');
 
 module.exports = function(app) {
@@ -17,10 +17,10 @@ module.exports = function(app) {
         return this.res.end(data, encoding, callback);
     };
 
-    var render = require('./render')(settings.views);
+    var render = require('../lib/render')(settings.views);
 
     // 如果没有 gearman 配置，则不启用 gearman
-    var submitJob = settings.gearman ? require('./gearman')(settings.gearman, app.env) : null;
+    var submitJob = settings.gearman ? require('../lib/gearman')(settings.gearman, app.env) : null;
 
     return function *extend(next) {
         // 复制 response 对象上的 write 和 end 方法

@@ -2,7 +2,7 @@ var koa = require('koa');
 var gzip = require('koa-gzip');
 var path = require('path');
 var debug = require('debug');
-var logger = require('./lib/logger');
+var logger = require('./middlewares/logger');
 var utils = require('./lib/utils');
 var commander = require('commander');
 var session = require('koa-session');
@@ -119,13 +119,13 @@ if (settings.session) {
 }
 
 // add extend
-app.use(require('./lib/extend')(app));
+app.use(require('./middlewares/extend')(app));
 
 // before route
 middlewares['beforeRoute'] && app.use(middlewares['beforeRoute']);
 
 // add router
-app.use(require('./lib/router')(settings.controllers));
+app.use(require('./middlewares/router')(settings.controllers));
 
 // after send
 middlewares['afterRoute'] && app.use(middlewares['afterRoute']);
