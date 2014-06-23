@@ -33,6 +33,8 @@ var defaultSettings = {
 
     'gzip': true,
 
+    'csrf': true,
+
     // session 配置
     'session': {
         'keys': ['the blast session keys'],
