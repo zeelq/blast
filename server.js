@@ -30,6 +30,9 @@ var defaultSettings = {
     'port'  : 8888,
     'host'  : '0.0.0.0',
     'title' : 'Welcome to Blast',
+
+    'gzip': true,
+
     // session 配置
     'session': {
         'keys': ['the blast session keys'],
@@ -99,10 +102,10 @@ try {
 }
 
 // add logger
-app.use(logger());
+settings.log && app.use(logger());
 
 // gzip
-app.use(gzip());
+settings.gzip && app.use(gzip());
 
 // start request
 middlewares['startRequest'] && app.use(middlewares['startRequest']);

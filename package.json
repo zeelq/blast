@@ -6,6 +6,7 @@
   "bugs": "",
   "dependencies": {
     "utilities"                : ">=0.0.37",
+    "dot"                      : ">=1.0.2",
     "co"                       : ">=3.0.0",
     "co-body"                  : ">=0.0.1",
     "co-busboy"                : ">=0.1.0",
@@ -28,7 +29,6 @@
     "path-to-regexp"           : ">=0.1.2",
     "mysql"                    : ">=2.3.2",
     "gearmanode"               : ">=0.1.5",
-    "dot"                      : ">=1.0.2",
     "mkdirp"                   : ">=0.5.0",
     "division"                 : ">=0.4.5",
     "passthrough-counter"      : ">=0.0.1",
