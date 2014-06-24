@@ -17,20 +17,22 @@ var urls = {
     }
 };
 
-module.exports = function(controller) {
-    var routers = fs.readdirSync(controller.path);
+module.exports = function(app) {
+    var controllers = app.settings.controllers;
+    var routers = fs.readdirSync(controllers.path);
     var counter = 0;
 
     routers.forEach(function(value, key) {
-        var f = path.join(controller.path, value);
+        var f = path.join(controllers.path, value);
         var stat = fs.statSync(f);
 
         if (stat.isFile() && value.slice(-3) !== '.js') return;
 
         var R;
         try {
-            R = require(f);
+            R = new (require(f))(app);
         } catch (e) {
+            console.log((e + ' the router ' + f + ' was ignored').red);
             R = {};
         }
 

@@ -125,7 +125,7 @@ app.use(require('./middlewares/extend')(app));
 middlewares['beforeRoute'] && app.use(middlewares['beforeRoute']);
 
 // add router
-app.use(require('./middlewares/router')(settings.controllers));
+app.use(require('./middlewares/router')(app));
 
 // after send
 middlewares['afterRoute'] && app.use(middlewares['afterRoute']);

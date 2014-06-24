@@ -1,6 +1,6 @@
 {
   "name": "blast",
-  "description": "a web framework",
+  "description": "A web framework based on Koa",
   "version": "0.0.1",
   "repository": "https://github.com/cage1618/blast.git",
   "bugs": "",
@@ -28,6 +28,13 @@
     "commander"                : ">=2.2.0",
     "path-to-regexp"           : ">=0.1.2",
     "mysql"                    : ">=2.3.2",
+    "redis"                    : ">=0.10.3",
+    "mongodb"                  : ">=1.4.7",
+    "pg"                       : ">=3.3.0",
+    "neo4j"                    : ">=1.1.0",
+    "tingodb"                  : ">=0.2.1",
+    "rethinkdb"                : ">=1.13.0-0",
+    "arango"                   : ">=0.4.4",
     "gearmanode"               : ">=0.1.5",
     "mkdirp"                   : ">=0.5.0",
     "division"                 : ">=0.4.5",
@@ -35,7 +42,7 @@
     "humanize-number"          : ">=0.0.1",
     "chokidar"                 : ">=0.8.2",
     "colors"                   : ">=0.6.2",
-    "sequelize"                : ">=1.7.9"
+    "caminte"                  : ">=0.0.21"
   },
   "devDependencies": {
     "co": "*",
@@ -49,5 +56,10 @@
   "engines": {
     "node": ">= 11.3"
   },
-  "license": "MIT"
+  "license": "MIT",
+
+  "DB_TO_SUPPORT": [
+    "sqlite3"
+  ] 
+
 }

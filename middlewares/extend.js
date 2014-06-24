@@ -17,6 +17,9 @@ module.exports = function(app) {
         return this.res.end(data, encoding, callback);
     };
 
+    // 配置了数据库才加载
+    settings.models && require('../lib/model')(app);
+
     var render = require('../lib/render')(settings.views);
 
     // 如果没有 gearman 配置，则不启用 gearman
