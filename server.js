@@ -176,5 +176,5 @@ if (app.env === 'NODE_ENV' || app.env === 'development') {
 
     setTimeout(function() {
         app.emit('start');
-    }, 200);
+    }, 300);
 }
