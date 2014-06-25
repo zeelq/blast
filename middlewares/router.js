@@ -82,7 +82,6 @@ module.exports = function(app) {
                 // custom 404 page
                 this.status = 404;
             }
-
             yield next;
 
         } : function *welcome(next) {
