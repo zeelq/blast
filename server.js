@@ -5,7 +5,7 @@ var debug = require('debug');
 var logger = require('./middlewares/logger');
 var utils = require('./lib/utils');
 var commander = require('commander');
-var session = require('koa-session');
+//var session = require('koa-session');
 
 var colors = require('colors');
 
@@ -36,6 +36,7 @@ var defaultSettings = {
     'csrf': true,
 
     // session 配置
+    /*
     'session': {
         'keys': ['the blast session keys'],
         'store': {},
@@ -43,6 +44,7 @@ var defaultSettings = {
             'maxAge': 60 * 60 * 1000
         }
     },
+    */
     
     // 自定义中间件
     'middlewares': path.join(dir, 'middlewares'),
@@ -114,10 +116,12 @@ settings.gzip && app.use(gzip());
 middlewares['startRequest'] && app.use(middlewares['startRequest']);
 
 // session
+/*
 if (settings.session) {
     app.keys = settings.session.keys
     app.use(session(settings.session));
 }
+*/
 
 // add extend
 app.use(require('./middlewares/extend')(app));
@@ -125,8 +129,8 @@ app.use(require('./middlewares/extend')(app));
 // before route
 middlewares['beforeRoute'] && app.use(middlewares['beforeRoute']);
 
-// add router
-app.use(require('./middlewares/router')(app));
+// add controllers
+app.use(require('./middlewares/controllers')(app));
 
 // after send
 middlewares['afterRoute'] && app.use(middlewares['afterRoute']);

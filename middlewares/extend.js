@@ -30,6 +30,13 @@ module.exports = function(app) {
         this.write = httpWrite;
         this.end = httpEnd;
 
+        var r = this.redirect;
+
+        this.redirect = function(url) {
+            r.call(this, url);
+            this.end();
+        };
+
         // render,bigpipe
         utils.mixin(this, render);
 
