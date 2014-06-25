@@ -89,7 +89,8 @@ var settings = require(path.join(dir, 'settings'));
 var environment = commander.environment && require(path.join(dir, commander.environment));
 var custom = commander.custom && require(path.join(dir, commander.custom)) || {};
 var settings = utils.mixin(defaultSettings, settings, environment, custom, true);
-var port = settings.port;
+var port = commander.port || settings.port;
+settings.port = port;
 
 app.name = settings.name;
 app.env = commander.environment;

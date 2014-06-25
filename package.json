@@ -1,48 +1,53 @@
 {
-  "name": "blast",
+  "name": "koa-blast",
   "description": "A web framework based on Koa",
   "version": "0.0.1",
-  "repository": "https://github.com/cage1618/blast.git",
-  "bugs": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lofc/blast.git"
+  },
+  "bugs": {
+    "url": "https://github.com/lofc/blast/issues"
+  },
   "dependencies": {
-    "utilities"                : ">=0.0.37",
-    "dot"                      : ">=1.0.2",
-    "co"                       : ">=3.0.0",
-    "co-body"                  : ">=0.0.1",
-    "co-busboy"                : ">=0.1.0",
-    "co-fs"                    : ">=1.1.1",
-    "koa-gzip"                 : ">=0.1.0",
-    "co-views"                 : ">=0.1.0",
-    "finished"                 : ">=1.1.1",
-    "koa"                      : ">=0.6.0",
-    "koa-compose"              : ">=2.1.0",
-    "koa-csrf"                 : ">=1.1.0",
-    "koa-logger"               : ">=1.1.0",
-    "koa-session"              : ">=1.2.0",
-    "koa-static"               : ">=1.4.0",
-    "bytes"                    : ">=1.0.0",
-    "raw-body"                 : ">=1.1.1",
-    "save-to"                  : ">=1.0.0",
-    "streaming-json-stringify" : ">=1.0.0",
-    "debug"                    : ">=0.8.1",
-    "commander"                : ">=2.2.0",
-    "path-to-regexp"           : ">=0.1.2",
-    "mysql"                    : ">=2.3.2",
-    "redis"                    : ">=0.10.3",
-    "mongodb"                  : ">=1.4.7",
-    "pg"                       : ">=3.3.0",
-    "neo4j"                    : ">=1.1.0",
-    "tingodb"                  : ">=0.2.1",
-    "rethinkdb"                : ">=1.13.0-0",
-    "arango"                   : ">=0.4.4",
-    "gearmanode"               : ">=0.1.5",
-    "mkdirp"                   : ">=0.5.0",
-    "division"                 : ">=0.4.5",
-    "passthrough-counter"      : ">=0.0.1",
-    "humanize-number"          : ">=0.0.1",
-    "chokidar"                 : ">=0.8.2",
-    "colors"                   : ">=0.6.2",
-    "caminte"                  : ">=0.0.21"
+    "utilities": ">=0.0.37",
+    "dot": ">=1.0.2",
+    "co": ">=3.0.0",
+    "co-body": ">=0.0.1",
+    "co-busboy": ">=0.1.0",
+    "co-fs": ">=1.1.1",
+    "koa-gzip": ">=0.1.0",
+    "co-views": ">=0.1.0",
+    "finished": ">=1.1.1",
+    "koa": ">=0.6.0",
+    "koa-compose": ">=2.1.0",
+    "koa-csrf": ">=1.1.0",
+    "koa-logger": ">=1.1.0",
+    "koa-session": ">=1.2.0",
+    "koa-static": ">=1.4.0",
+    "bytes": ">=1.0.0",
+    "raw-body": ">=1.1.1",
+    "save-to": ">=1.0.0",
+    "streaming-json-stringify": ">=1.0.0",
+    "debug": ">=0.8.1",
+    "commander": ">=2.2.0",
+    "path-to-regexp": ">=0.1.2",
+    "mysql": ">=2.3.2",
+    "redis": ">=0.10.3",
+    "mongodb": ">=1.4.7",
+    "pg": ">=3.3.0",
+    "neo4j": ">=1.1.0",
+    "tingodb": ">=0.2.1",
+    "rethinkdb": ">=1.13.0-0",
+    "arango": ">=0.4.4",
+    "gearmanode": ">=0.1.5",
+    "mkdirp": ">=0.5.0",
+    "division": ">=0.4.5",
+    "passthrough-counter": ">=0.0.1",
+    "humanize-number": ">=0.0.1",
+    "chokidar": ">=0.8.2",
+    "colors": ">=0.6.2",
+    "caminte": ">=0.0.21"
   },
   "devDependencies": {
     "co": "*",
@@ -51,15 +56,24 @@
     "supertest": "*"
   },
   "scripts": {
-    "test": "make test"
+    "test": "make test",
+    "start": "node index.js"
   },
   "engines": {
     "node": ">= 11.3"
   },
   "license": "MIT",
-
   "DB_TO_SUPPORT": [
     "sqlite3"
-  ] 
-
+  ],
+  "homepage": "https://github.com/lofc/blast",
+  "main": "index.js",
+  "keywords": [
+    "koa",
+    "framework",
+    "bigpipe",
+    "gearman",
+    "orm"
+  ],
+  "author": "cage1618"
 }
