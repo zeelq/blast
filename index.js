@@ -5,7 +5,7 @@ var timeout = 30000;
 var autoSize = cluster.get('size');
 //var size = Number(process.argv[2]) || autoSize;
 // 默认单进程
-var size = Number(process.argv[2]) || 1;
+var size = Number(process.argv[2]) || 2;
 
 cluster.set('args', process.argv.slice(2))
     .set('path', path.join(__dirname, 'server.js'))

@@ -71,16 +71,15 @@ module.exports = function(app) {
     for (var p in middlewares) {
         var paths = middlewares[p];
         if (paths === '*') {
-            // for all controllers
             for (var u in urls) {
-                if (urls.hasOwnProperty(u)) {
+                if (urls.hasOwnProperty(u) && u !== '/favicon.ico') {
                     urls[u].unshift(mws[p]);
                 }
             }
         } else if (utils.isType('array', paths)) {
             if (p.indexOf('!') === 0) {
                 for (var u in urls) {
-                    if (urls.hasOwnProperty(u) && !~paths.indexOf(u)) {
+                    if (urls.hasOwnProperty(u) && !~paths.indexOf(u) && u !== '/favicon.ico') {
                         urls[u].unshift(mws[p]);
                     }
                 }

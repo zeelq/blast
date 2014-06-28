@@ -1,4 +1,4 @@
-var koa = require('koa');
+var koa = require('ext-koa');
 var gzip = require('koa-gzip');
 var path = require('path');
 var debug = require('debug');
@@ -148,9 +148,10 @@ console.log('======================================== settings =================
 if (app.env === 'NODE_ENV' || app.env === 'development') {
     var chokidar = require('chokidar');
     var watcherOptions = {
+        //ignored: /[\/\\]\.|[\/\\]node_modules/,
         ignored: /[\/\\]\.|[\/\\]node_modules/,
         persistent: true,
-        interval: 1000
+        ignoreInitial: true
     };
 
     var watcherBlast = chokidar.watch(__dirname, watcherOptions);
@@ -178,8 +179,5 @@ if (app.env === 'NODE_ENV' || app.env === 'development') {
             .on('unlinkDir', watcher)
             .on('error', watcher);
     });
-
-    setTimeout(function() {
-        app.emit('start');
-    }, 300);
+    app.emit('start');
 }

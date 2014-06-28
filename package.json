@@ -19,10 +19,9 @@
     "koa-gzip": ">=0.1.0",
     "co-views": ">=0.1.0",
     "finished": ">=1.1.1",
-    "koa": ">=0.6.0",
+    "ext-koa": ">=0.0.1",
     "koa-compose": ">=2.1.0",
     "koa-csrf": ">=1.1.0",
-    "koa-logger": ">=1.1.0",
     "koa-session": ">=1.2.0",
     "koa-static": ">=1.4.0",
     "bytes": ">=1.0.0",
@@ -35,8 +34,6 @@
     "mysql": ">=2.3.2",
     "redis": ">=0.10.3",
     "mongodb": ">=1.4.7",
-    "pg": ">=3.3.0",
-    "neo4j": ">=1.1.0",
     "tingodb": ">=0.2.1",
     "rethinkdb": ">=1.13.0-0",
     "arango": ">=0.4.4",
@@ -64,7 +61,9 @@
   },
   "license": "MIT",
   "DB_TO_SUPPORT": [
-    "sqlite3"
+    "sqlite3",
+    "pg",
+    "neo4j"
   ],
   "homepage": "https://github.com/lofc/blast",
   "main": "index.js",
