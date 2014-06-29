@@ -20,14 +20,14 @@ module.exports = function(app) {
     // 配置了数据库才加载
     settings.models && require('../lib/model')(app);
 
-    var render = require('../lib/render')(settings.views);
+    //var render = require('../lib/render')(settings.views);
 
     // 如果没有 gearman 配置，则不启用 gearman
     var submitJob = settings.gearman ? require('../lib/gearman')(settings.gearman, app.env) : null;
 
     return function *extend(next) {
         // render,bigpipe
-        utils.mixin(this, render);
+        //utils.mixin(this, render);
 
         this.submitJob = submitJob;
 

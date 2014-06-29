@@ -1,9 +1,7 @@
 var koa = require('ext-koa');
 var gzip = require('koa-gzip');
 var path = require('path');
-var debug = require('debug');
 var logger = require('./middlewares/logger');
-var utils = require('./lib/utils');
 var commander = require('commander');
 //var session = require('koa-session');
 
@@ -20,84 +18,13 @@ commander.version('0.1.1')
 
 
 if (!commander.dir) {
-    throw new Error('Missing parameter:project dir');
+    throw new Error('Missing parameter:project directory');
 }
 
-// import settings
-var dir = path.resolve(commander.dir);
-var defaultSettings = {
-    'dir'   : dir,
-    'port'  : 8888,
-    'host'  : '0.0.0.0',
-    'title' : 'Welcome to Blast',
+// initialize app
+var settings = require('./initialize').call(app, commander);
 
-    'gzip': true,
-
-    'csrf': true,
-
-    // session 配置
-    /*
-    'session': {
-        'keys': ['the blast session keys'],
-        'store': {},
-        'cookie': {
-            'maxAge': 60 * 60 * 1000
-        }
-    },
-    */
-    
-    // 自定义中间件
-    'middlewares': path.join(dir, 'middlewares'),
-
-    // 视图设置
-    'views': {
-        // 模板文件位置
-        'path'      : path.join(dir, 'views'),
-        // 模板文件缓存位置
-        'cache'     : path.join(dir, 'cache'),
-        // 模板引擎
-        'engine'    : {
-            // 模板引擎名称
-            'name'      : 'dot',
-            // 模板引擎编译方法
-            'compile'   : 'template',
-            // 模板后缀
-            'ext'       : 'html',
-            // 配置模板引擎,如果需要，可以指定一个函数，作为模板引擎对象的一个方法被调用
-            'configure': null
-        }
-    },
-
-    // 控制层(routers)目录
-    'controllers': {
-        'path': path.join(dir, 'controllers')
-    },
-
-    // 静态文件配置
-    'static': {
-        // 静态文件域名
-        'domain': '/',
-        // favicon图标位置
-        'favicon': path.join(dir, 'favicon.ico')
-    },
-
-    // 日志
-    'log': {
-        // 日志位置
-        'path': '/opt/log'
-    }
-};
-var settings = require(path.join(dir, 'settings'));
-var environment = commander.environment && require(path.join(dir, commander.environment));
-var custom = commander.custom && require(path.join(dir, commander.custom)) || {};
-var settings = utils.mixin(defaultSettings, settings, environment, custom, true);
-var port = commander.port || settings.port;
-settings.port = port;
-
-app.name = settings.name;
-app.env = commander.environment;
-app.settings = settings;
-
+// 加载中间件
 var middlewares = null;
 
 try {
@@ -136,16 +63,15 @@ app.use(require('./middlewares/controllers')(app));
 middlewares['afterRoute'] && app.use(middlewares['afterRoute']);
 
 // listen at port
-app.listen(port);
-
-console.log('listening on port ' + port.green);
-console.log('======================================== settings ========================================');
-console.log(settings);
-console.log('======================================== settings ========================================');
+app.listen(settings.port);
 
 
-/****************************** 开发环境监控文件变动,自动重启 node 服务 ************************/
 if (app.env === 'NODE_ENV' || app.env === 'development') {
+    console.log('listening on port ' + settings.port.green);
+    console.log('======================================== settings ========================================');
+    console.log(settings);
+
+    /****************************** 开发环境监控文件变动,自动重启 node 服务 ************************/
     var chokidar = require('chokidar');
     var watcherOptions = {
         //ignored: /[\/\\]\.|[\/\\]node_modules/,
@@ -155,7 +81,7 @@ if (app.env === 'NODE_ENV' || app.env === 'development') {
     };
 
     var watcherBlast = chokidar.watch(__dirname, watcherOptions);
-    var watcherProject = chokidar.watch(dir, watcherOptions);
+    var watcherProject = chokidar.watch(settings.dir, watcherOptions);
 
     function watcher() {
         process.exit();
