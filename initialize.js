@@ -1,7 +1,12 @@
 module.exports = function(commander) {
 
     // import settings
+    var fs = require('fs');
     var path = require('path');
+    var mkdirp = require('mkdirp');
+    var utils = require('./lib/utils');
+
+
     var dir = path.resolve(commander.dir);
 
     // default settings
@@ -42,7 +47,7 @@ module.exports = function(commander) {
                 // 模板引擎编译方法
                 'compile'   : 'template',
                 // 模板后缀
-                'ext'       : 'html',
+                'ext'       : '.html',
                 // 配置模板引擎,如果需要，可以指定一个函数，作为模板引擎对象的一个方法被调用
                 'configure': null
             }
@@ -68,7 +73,6 @@ module.exports = function(commander) {
         }
     };
 
-    var utils = require('./lib/utils');
     var settings = require(path.join(dir, 'settings'));
     var environment = commander.environment && require(path.join(dir, commander.environment));
     var custom = commander.custom && require(path.join(dir, commander.custom)) || {};
@@ -82,28 +86,28 @@ module.exports = function(commander) {
     // cache model
     this.cache = require('./lib/cache/Manage');
 
-    var proto = this.constructor.prototype;
-    proto.compileTemplate = function(file) {
-        var path = require('path');
-        var mkdirp = require('mkdirp');
-        var fs = require('fs');
+    var engine = require(settings.views.engine.name);
+    // 执行模板配置方法
+    'function' === typeof settings.views.engine.configure && 
+        settings.views.engine.configure.call(engine);
 
+    var proto = this.constructor.prototype;
+    // 模板编译
+    proto.compileTemplate = function(file) {
         var settings = this.settings;
         var viewConfig = settings.views;
+        var ext = viewConfig.engine.ext;
+
+        var tmf = this.cache.get(file) || this.cache.get(file + ext);
+        if (tmf) { return tmf; }
+
         var source = viewConfig.path;
         var target = viewConfig.cache;
-        var ext = '.' + viewConfig.engine.ext;
 
-        var engine = require(viewConfig.engine.name);
         var compileMethod = viewConfig.engine.compile;
-
         var basename = path.basename(file);
         var extname = path.extname(basename);
         var dir = path.join(target, file.slice(source.length + 1, -basename.length));
-
-        var tmf = this.cache.get(file) || this.cache.get(file + ext);
-
-        if (tmf) { return tmf; }
 
         // 建立缓存目录
         if (!fs.existsSync(dir)) {
@@ -112,9 +116,9 @@ module.exports = function(commander) {
         }
 
         var html = '';
+
         // 编译后统一为js文件
         var cacheFile = path.join(dir, basename + '.js');
-
         try {
             html = fs.readFileSync(file + ext, {'encoding': 'utf8'});
         } catch(e) {
@@ -136,7 +140,6 @@ module.exports = function(commander) {
         }
 
         js = 'module.exports=' + js;
-
         try {
             fs.writeFileSync(cacheFile, js, {'encoding': 'utf8'});
             fs.chmodSync(cacheFile, '0777');
@@ -157,14 +160,35 @@ module.exports = function(commander) {
         return tmf;
     };
 
+    // 填充数据
+    proto.fill = function(view, data, options) {
+        options = options || {};
+
+        if (!view || options.format === 'json') {
+            try {
+                return JSON.stringify(data);
+            } catch(e) {
+                return JSON.stringify(utils.errorToJSON(e));
+            }
+        } else {
+            var viewConfig = this.settings.views;
+            var f = view.indexOf('/') === 0 ? view : path.join(viewConfig.path, view);
+            var tmf = this.compileTemplate(f);
+            var html = '';
+            try {
+                return tmf(data);
+            } catch(e) {
+                return JSON.stringify(utils.errorToJSON(e));
+            }
+        }
+    };
+
     // 初始化编译所有模板
     (function() {
-        var path = require('path');
-        var fs = require('fs');
         var config = this.settings.views;
         var source = config.path;
         var target = config.cache;
-        var ext = '.' + config.engine.ext;
+        var ext = config.engine.ext;
         var compileMethod = config.engine.compile;
         var rs = [];
 
