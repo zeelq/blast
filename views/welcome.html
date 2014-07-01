@@ -44,10 +44,10 @@
             <p>您之所以看到这个页面，是因为您还没有配置任何路由</p>
             <p>一个合法的路由类似如下代码：</p>
             <div class="code">
-                <p>module.exports = {</p>
-                <p style="padding-left:24px">"/": function *() {</p>
-                <p style="padding-left:48px">this.body = 'Index';</p>
-                <p style="padding-left:24px">}</p>
+                <p>module.exports = function(app)</p>
+                <p style="padding-left:24px">this['/'] = function () {</p>
+                <p style="padding-left:48px">this.render('index')</p>
+                <p style="padding-left:24px">};</p>
                 <p>}</p>
             </div>
         </div>

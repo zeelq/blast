@@ -6,7 +6,6 @@ module.exports = function(commander) {
     var mkdirp = require('mkdirp');
     var utils = require('./lib/utils');
 
-
     var dir = path.resolve(commander.dir);
 
     // default settings
@@ -214,5 +213,16 @@ module.exports = function(commander) {
         });
     }).call(this);
 
+    proto.__defineGetter__('locals', function() {
+        return this.LOCALS || {};
+    });
+
+    proto.__defineSetter__('locals', function(val) {
+           
+    });
+
+    // 缓存 bigpipe 代码
+    proto._bigpipeScript = require('./lib/fe-bigpipe').toString();
+    
     return settings;
 };

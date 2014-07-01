@@ -131,12 +131,13 @@ module.exports = function(app) {
                 // TODO:
                 // custom 404 page
                 this.status = 404;
+                this.end('Not Found');
             }
             yield next;
 
         } : function *welcome(next) {
-            this.set('Content-Type', 'text/html');
-            this.body = yield fs.readFile.bind(null, path.join(__dirname, '../views/welcome.html'));
+            this.type = 'html';
+            this.render(path.join(__dirname, '../views/welcome.html'));
             yield next;
         }
 };
