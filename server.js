@@ -37,7 +37,7 @@ try {
 settings.log && app.use(logger());
 
 // gzip
-settings.gzip && app.use(gzip());
+//settings.gzip && app.use(gzip());
 
 // start request
 middlewares['startRequest'] && app.use(middlewares['startRequest']);

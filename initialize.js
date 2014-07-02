@@ -97,9 +97,6 @@ module.exports = function(commander) {
         var viewConfig = settings.views;
         var ext = viewConfig.engine.ext;
 
-        var tmf = this.cache.get(file) || this.cache.get(file + ext);
-        if (tmf) { return tmf; }
-
         var source = viewConfig.path;
         var target = viewConfig.cache;
 
@@ -147,6 +144,7 @@ module.exports = function(commander) {
             throw new Error(e);
         }
 
+        var tmf = null;
         try {
             tmf = require(cacheFile);
             this.cache.set(file, tmf);
@@ -162,17 +160,18 @@ module.exports = function(commander) {
     // 填充数据
     proto.fill = function(view, data, options) {
         options = options || {};
+        var ext = this.settings.views.engine.ext;
 
         if (!view || options.format === 'json') {
             try {
-                return JSON.stringify(data);
+                return data;
             } catch(e) {
-                return JSON.stringify(utils.errorToJSON(e));
+                return utils.errorToJSON(e);
             }
         } else {
             var viewConfig = this.settings.views;
-            var f = view.indexOf('/') === 0 ? view : path.join(viewConfig.path, view);
-            var tmf = this.compileTemplate(f);
+            var file = view.indexOf('/') === 0 ? view : path.join(viewConfig.path, view);
+            var tmf = this.cache.get(file) || this.cache.get(file + ext) || this.compileTemplate(file);
             var html = '';
             try {
                 return tmf(data);

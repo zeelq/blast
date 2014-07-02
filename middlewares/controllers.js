@@ -4,9 +4,14 @@ var utils = require('../lib/utils');
 var pathToRegexp = require('path-to-regexp');
 
 function decode(val) {
-    if (val) {
-        return decodeURIComponent(val);
+    var v;
+    for (var i = val.length; i--;) {
+        v = val[i];
+        if (v) {
+            val[i] = decodeURIComponent(v);
+        }
     }
+    return val;
 }
 
 var urls = {
@@ -92,7 +97,7 @@ module.exports = function(app) {
     }
 
     return counter ? 
-        function *router(next) {
+        function *controller(next) {
             var m = null;
             var notFound = true;
             var ctx = this;
@@ -101,18 +106,18 @@ module.exports = function(app) {
                 var pattern = pathToRegexp(r);
 
                 if (m = pattern.exec(this.path)) {
-                    var args = m.slice(1).map(decode);
+                    var args = decode(m.slice(1));
                     var fns = urls[r];
                     var length = fns.length;
+                    var fn = null;
 
                     for (var i = 0; i < length; i++) {
-                        (function(idx) {
+                        fn = fns[i];
+                        (function(fn) {
                             setImmediate(function() {
-                                var fn = fns[idx];
                                 try {
                                     fn.apply(ctx, args);
                                 } catch(e) {
-                                    //console.log('->', e);
                                     ctx.status = 500;
                                     ctx.type = 'html';
                                     ctx.end(e.toString());
@@ -120,7 +125,7 @@ module.exports = function(app) {
                                     // custom 500 page
                                 }
                             });
-                        })(i);
+                        })(fn);
                     }
                     notFound = false;
                     break;
