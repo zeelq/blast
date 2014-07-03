@@ -15,11 +15,15 @@ function decode(val) {
 }
 
 var urls = {
-    '/favicon.ico': [function *() {
+    '/favicon.ico': [function () {
         var app = this.app;
         var favicon = app.settings.static.favicon;
         this.type = 'image/x-icon';
-        this.body = yield fs.readFile.bind(null, favicon);
+        this.assign('favicon.ico', function(cb) {
+            fs.readFile(favicon, cb);
+        }).render(function(data) {
+            return data['favicon.ico']['data'][0];
+        });
     }]
 };
 
@@ -136,7 +140,7 @@ module.exports = function(app) {
                 // TODO:
                 // custom 404 page
                 this.status = 404;
-                this.end('Not Found');
+                this.res.end('Not Found');
             }
             yield next;
 

@@ -74,7 +74,6 @@ if (app.env === 'NODE_ENV' || app.env === 'development') {
     /****************************** 开发环境监控文件变动,自动重启 node 服务 ************************/
     var chokidar = require('chokidar');
     var watcherOptions = {
-        //ignored: /[\/\\]\.|[\/\\]node_modules/,
         ignored: /[\/\\]\.|[\/\\]node_modules/,
         persistent: true,
         ignoreInitial: true
