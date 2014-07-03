@@ -13,6 +13,8 @@ alias node='node --harmony'
 ```
 通过 npm 安装之后，blast 的目录名为 koa-blast， 建议手动修改为 blast
 
+进入blast 目录，执行 `npm install` 安装依赖包，blast安装完毕：
+
 
 ## 如何开始
 
